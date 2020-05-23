@@ -1,0 +1,2 @@
+rootProject.name='Imoge'
+include ':app'
