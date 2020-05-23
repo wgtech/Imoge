@@ -11,10 +11,8 @@ class GlobalBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.d(tag, "onReceive: " + intent?.action)
 
-        intent?.action.also {
-            when (it) {
-                Intent.ACTION_MY_PACKAGE_REPLACED -> Log.d(tag, "ACTION_MY_PACKAGE_REPLACED")
-            }
+        when (intent?.action) {
+            Intent.ACTION_MY_PACKAGE_REPLACED -> Log.d(tag, "ACTION_MY_PACKAGE_REPLACED")
         }
     }
 }
