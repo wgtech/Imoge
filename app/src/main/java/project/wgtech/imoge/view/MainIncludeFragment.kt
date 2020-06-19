@@ -31,6 +31,7 @@ class MainIncludeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewmodel = MainViewModel(requireActivity().application)
+
         binding.executePendingBindings()
     }
 }

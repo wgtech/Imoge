@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 
-class GlobalBroadcastReceiver : BroadcastReceiver() {
+class CommonBroadcastReceiver : BroadcastReceiver() {
     private val tag = javaClass.simpleName
 
     override fun onReceive(context: Context?, intent: Intent?) {

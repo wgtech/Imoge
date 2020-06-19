@@ -3,11 +3,10 @@ package project.wgtech.imoge.common
 import android.app.Application
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.res.Configuration
 
 class GlobalApplication : Application() {
 
-    private val broadcastReceiver = GlobalBroadcastReceiver()
+    private val broadcastReceiver = CommonBroadcastReceiver()
 
     override fun onCreate() {
         super.onCreate()

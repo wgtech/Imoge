@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="project.wgtech.imoge.common.GlobalBroadcastReceiver">
+        <receiver android:name="project.wgtech.imoge.common.CommonBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
