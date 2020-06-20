@@ -2,15 +2,10 @@ package project.wgtech.imoge.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.core.view.get
-import androidx.core.view.iterator
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.MainActivityBinding
-import kotlin.math.exp
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,22 +18,19 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         binding.activity = this
 
-        binding.bottomNavigationViewMain.menu.iterator().forEach {
-            menuItem -> menuItem.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.menu_explore -> {
-                        transactFragment(exploreFragment)
-                        true
-                    }
-                    R.id.menu_settings -> {
-                        transactFragment(settingsFragment)
-                        true
-                    }
-                    else -> false
+        binding.bottomNavigationViewMain.setOnNavigationItemSelectedListener {
+            item -> when (item.itemId) {
+                R.id.menu_explore -> {
+                    transactFragment(exploreFragment)
+                    true
                 }
+                R.id.menu_settings -> {
+                    transactFragment(settingsFragment)
+                    true
+                }
+                else -> false
             }
         }
-
 
         // initialize
         if (savedInstanceState == null) {
@@ -46,5 +38,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun transactFragment(choosenFragment: Fragment) = supportFragmentManager.beginTransaction().replace(R.id.containerMain, choosenFragment).commitNow()
+    private fun transactFragment(chosenFragment: Fragment) = supportFragmentManager.beginTransaction().replace(R.id.containerMain, chosenFragment).commitNow()
 }
