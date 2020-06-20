@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
+    <data>
+        <variable
+            name="activity"
+            type="project.wgtech.imoge.view.MainActivity" />
+        <variable
+            name="viewModel"
+            type="project.wgtech.imoge.viewmodel.ExploreViewModel" />
+    </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="project.wgtech.imoge.view.MainActivity">
+        android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="project.wgtech.imoge.view.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/main_bottom_navigation_view"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            app:menu="@menu/main_menu"
-            app:itemBackground="@null"
-            app:labelVisibilityMode="unlabeled" />
+            android:layout_gravity="bottom">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationViewMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/main_menu"
+                app:itemBackground="@null"
+                app:labelVisibilityMode="unlabeled" />
 
+        </com.google.android.material.appbar.AppBarLayout>
 
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
 
 
