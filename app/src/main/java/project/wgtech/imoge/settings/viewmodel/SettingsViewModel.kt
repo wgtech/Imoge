@@ -1,4 +1,4 @@
-package project.wgtech.imoge.viewmodel
+package project.wgtech.imoge.settings.viewmodel
 
 import androidx.lifecycle.ViewModel
 import project.wgtech.imoge.util.ResourceProviderImpl

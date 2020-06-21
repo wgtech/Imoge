@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import project.wgtech.imoge.BuildConfig
+import project.wgtech.imoge.explore.view.ExploreFragment
 
 class LogUtil () {
 
@@ -24,5 +25,4 @@ class LogUtil () {
 
         fun toast (context: Context, message: String) = Toast.makeText(context, message, Toast.LENGTH_SHORT)
     }
-
 }

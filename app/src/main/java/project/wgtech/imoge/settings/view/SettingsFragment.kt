@@ -1,4 +1,4 @@
-package project.wgtech.imoge.view
+package project.wgtech.imoge.settings.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,14 +9,14 @@ import androidx.databinding.DataBindingUtil
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.SettingsFragmentBinding
 import project.wgtech.imoge.util.ResourceProviderImpl
-import project.wgtech.imoge.viewmodel.SettingsViewModel
+import project.wgtech.imoge.settings.viewmodel.SettingsViewModel
 
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: SettingsFragmentBinding
 
     companion object {
-        fun newInstance() = SettingsFragment()
+        val instance = SettingsFragment()
     }
 
     override fun onCreateView(
@@ -31,7 +31,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewmodel = SettingsViewModel(ResourceProviderImpl(requireContext()))
+        binding.viewModel = SettingsViewModel(ResourceProviderImpl(requireContext()))
 
         binding.executePendingBindings()
     }
