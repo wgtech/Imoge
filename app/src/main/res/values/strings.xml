@@ -1,6 +1,22 @@
 <resources>
     <!-- Common -->
     <string name="app_name">Imoge</string>
+    <string-array name="test_array">
+        <item>happy</item>
+        <item>sunshine</item>
+        <item>delight</item>
+        <item>joyful</item>
+        <item>delightful</item>
+        <item>love</item>
+        <item>dance</item>
+        <item>dancing</item>
+        <item>sing</item>
+        <item>singing</item>
+        <item>festival</item>
+        <item>perfect</item>
+        <item>positive</item>
+        <item>satisfied</item>
+    </string-array>
 
     <!-- Widget -->
 
