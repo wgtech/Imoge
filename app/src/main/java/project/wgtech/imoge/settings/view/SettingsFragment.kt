@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.SettingsFragmentBinding
 import project.wgtech.imoge.util.ResourceProviderImpl
-import project.wgtech.imoge.viewmodel.ExploreViewModel
 import project.wgtech.imoge.viewmodel.SettingsViewModel
 
 class SettingsFragment : Fragment() {
