@@ -6,21 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
+import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ExploreFragmentBinding
 import project.wgtech.imoge.explore.model.ExploreModel
-import project.wgtech.imoge.util.ResourceProviderImpl
 import project.wgtech.imoge.explore.viewmodel.ExploreViewModel
-import project.wgtech.imoge.util.LogUtil
-import project.wgtech.imoge.util.Types
+import project.wgtech.imoge.util.*
 
 class ExploreFragment() : Fragment() {
 
@@ -40,8 +35,8 @@ class ExploreFragment() : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.explore_fragment, container, false)
         binding.viewModel = ExploreViewModel(provider)
         binding.rvExplore.adapter = ExploreRecyclerViewAdapter(provider.stringArray(R.array.test_array).toMutableList())
-        binding.rvExplore.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvExplore.addItemDecoration(GridItemDecoration(10, 3))
+        binding.rvExplore.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvExplore.addItemDecoration(GridItemDecoration(15, 2))
         binding.chipGroupExplore.apply {
             val chipStrings = binding.viewModel?.selectedChipTextList
 
@@ -64,6 +59,17 @@ class ExploreFragment() : Fragment() {
                     this.addView(chip)
                 }
             }
+
+            Thread() {
+                binding.viewModel?.client?.getPhotosByKeyword(BuildConfig.api_unsplash_access, "joyful") // TODO
+                    ?.subscribe(
+                        { t: PhotosByKeywordEntity? ->
+                            LogUtil.d(Types.COMMON, "t: ${t.toString()}")
+                        },
+                        { t: Throwable -> t.printStackTrace() }
+                    )
+
+            }.start()
         }
         binding.lifecycleOwner = this
         return binding.root

@@ -1,11 +1,11 @@
 package project.wgtech.imoge.explore.viewmodel
 
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import project.wgtech.imoge.R
 import project.wgtech.imoge.explore.model.ExploreModel
 import project.wgtech.imoge.explore.model.ExploreMutableLiveData
+import project.wgtech.imoge.util.ApiClient
 import project.wgtech.imoge.util.ResourceProviderImpl
 
 class ExploreViewModel(private val provider: ResourceProviderImpl) : ViewModel() {
@@ -19,6 +19,8 @@ class ExploreViewModel(private val provider: ResourceProviderImpl) : ViewModel()
         set(value) {
             exploreLiveData.value!!.selectedChipTextList = value
         }
+
+    var client: ApiClient.IApiService = ApiClient.unsplashClient.create(ApiClient.IApiService::class.java)
 
     override fun onCleared() {
         super.onCleared()
