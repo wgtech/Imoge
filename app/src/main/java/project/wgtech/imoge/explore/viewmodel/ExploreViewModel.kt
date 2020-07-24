@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
 import project.wgtech.imoge.explore.model.ExploreRepository
+import project.wgtech.imoge.explore.model.PhotosByKeywordEntity
 import project.wgtech.imoge.util.*
 
 class ExploreViewModel(private val provider: ResourceProviderImpl) : ViewModel() {

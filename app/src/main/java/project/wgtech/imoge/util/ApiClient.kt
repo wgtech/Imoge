@@ -2,6 +2,7 @@ package project.wgtech.imoge.util
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Flowable
+import project.wgtech.imoge.explore.model.PhotosByKeywordEntity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET

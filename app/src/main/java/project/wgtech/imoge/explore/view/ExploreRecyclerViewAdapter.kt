@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.explore_recycler_view_item.view.*
 import project.wgtech.imoge.R
-import project.wgtech.imoge.util.PhotosByKeywordEntity
-import project.wgtech.imoge.util.Results
+import project.wgtech.imoge.explore.model.PhotosByKeywordEntity
+import project.wgtech.imoge.explore.model.Results
 import kotlin.random.Random
 
 class ExploreRecyclerViewAdapter(private var entity: PhotosByKeywordEntity?) : RecyclerView.Adapter<ViewHolder>() {

@@ -1,4 +1,4 @@
-package project.wgtech.imoge.util
+package project.wgtech.imoge.explore.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
