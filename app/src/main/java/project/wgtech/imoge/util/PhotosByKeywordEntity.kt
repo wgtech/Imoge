@@ -7,13 +7,13 @@ import java.lang.StringBuilder
 data class PhotosByKeywordEntity(
     @SerializedName("total")
     @Expose
-    var total: Int?,
+    private var total: Int?,
     @SerializedName("total_pages")
     @Expose
-    var totalPages: Int?,
+    private var totalPages: Int?,
     @SerializedName("results")
     @Expose
-    var results: List<Results>
+    private var results: List<Results>
 ){
     override fun toString(): String {
         var stringBuilder = StringBuilder()
@@ -22,33 +22,37 @@ data class PhotosByKeywordEntity(
         }
         return "total= $total, totalPages= $totalPages\n$stringBuilder"
     }
+
+    fun total() = total
+    fun totalPages() = totalPages
+    fun results() = results
 }
 
 data class Results(
     @SerializedName("id")
     @Expose
-    var id: String?,
+    private var id: String?,
     @SerializedName("created_at")
     @Expose
-    var createdAt: String?,
+    private var createdAt: String?,
     @SerializedName("updated_at")
     @Expose
-    var updatedAt: String?,
+    private var updatedAt: String?,
     @SerializedName("promoted_at")
     @Expose
-    var promotedAt: Any?,
+    private var promotedAt: Any?,
     @SerializedName("width")
     @Expose
-    var width: Int?,
+    private var width: Int?,
     @SerializedName("height")
     @Expose
-    var height: Int?,
+    private var height: Int?,
     @SerializedName("color")
     @Expose
-    var color: String?,
+    private var color: String?,
     @SerializedName("description")
     @Expose
-    var description: String?,
+    private var description: String?,
     @SerializedName("alt_description")
     @Expose
     var altDescription: String?,

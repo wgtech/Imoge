@@ -18,7 +18,7 @@ object ApiClient {
     interface IApiService {
         @GET("/search/photos")
         fun getPhotosByKeyword(
-            @Query("client_id") accessKey: String,
-            @Query("query") query: String) : Flowable<PhotosByKeywordEntity>
+            @Query("client_id") accessKey: String, @Query("query") query: String
+        ) : Flowable<PhotosByKeywordEntity>
     }
 }
