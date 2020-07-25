@@ -33,8 +33,7 @@ class ExploreRecyclerViewAdapter(private var entity: PhotosByKeywordEntity?) : R
         Glide.with(context)
             .asBitmap()
             .load(results?.urls?.thumb)
-            .fitCenter()
-            .centerCrop()
+            .optionalCenterCrop()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.imageView)
     }
@@ -45,11 +44,8 @@ class ExploreRecyclerViewAdapter(private var entity: PhotosByKeywordEntity?) : R
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var imageView: AppCompatImageView = itemView.imageViewExplore
-    private fun getRandomIntInRange(max: Int, min: Int) = Random.nextInt((max - min) + min) * min
 
-    fun bindView(/* exploreModel: ExploreModel */) {
-        //cardView.layoutParams.height = getRandomIntInRange(50,20)
-        imageView.setBackgroundColor(Color.argb(Random.nextInt(256), Random.nextInt(256), Random.nextInt(256), Random.nextInt(256)))
+    fun bindView() {
     }
 
 }

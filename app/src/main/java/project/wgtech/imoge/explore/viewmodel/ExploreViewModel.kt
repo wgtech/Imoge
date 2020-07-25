@@ -12,12 +12,13 @@ import project.wgtech.imoge.explore.model.ExploreRepository
 import project.wgtech.imoge.explore.model.PhotosByKeywordEntity
 import project.wgtech.imoge.util.*
 
-class ExploreViewModel(private val provider: ResourceProviderImpl) : ViewModel() {
+class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
+
+    private val repo: ExploreRepository = ExploreRepository()
 
     private val _chips = MutableLiveData<MutableList<String>>()
     val chips: LiveData<MutableList<String>>
         get() = _chips
-
 
     private val _photosByKeyword = MutableLiveData<PhotosByKeywordEntity?>()
     val photosByKeyword: LiveData<PhotosByKeywordEntity?>
@@ -25,17 +26,18 @@ class ExploreViewModel(private val provider: ResourceProviderImpl) : ViewModel()
 
     init {
         _chips.postValue(provider.stringArray(R.array.test_array).toMutableList())
-        setUpPhotosByKeywordEntity()
     }
 
-    private fun setUpPhotosByKeywordEntity() {
+    fun setUpPhotosByKeywordEntity(keywords: MutableList<String>) {
         viewModelScope.launch(Dispatchers.IO) {
-            val repo = ExploreRepository().getPhotosByKeywordEntity(BuildConfig.api_unsplash_access, "joyful")
 
-            repo.subscribe(
-                { v: PhotosByKeywordEntity? -> _photosByKeyword.postValue(v) },
-                { t: Throwable -> t.printStackTrace() }
-            )
+            for (keyword in keywords) {
+                repo.getPhotosByKeywordEntity(BuildConfig.api_unsplash_access, keyword)
+                    .subscribe(
+                    { v: PhotosByKeywordEntity? -> _photosByKeyword.postValue(v)},
+                    { t: Throwable -> t.printStackTrace() }
+                )
+            }
         }
     }
 

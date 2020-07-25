@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ExploreFragmentBinding
@@ -32,6 +34,11 @@ class ExploreFragment() : Fragment() {
         provider = ResourceProviderImpl(requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.explore_fragment, container, false)
         binding.viewModel = ExploreViewModel(provider)
+
+        binding.rvExplore.itemAnimator = DefaultItemAnimator()
+        binding.rvExplore.layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.photos_columns));
+        binding.rvExplore.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvExplore.addItemDecoration(GridItemDecoration(resources.getDimensionPixelSize(R.dimen.photos_spacing), resources.getInteger(R.integer.photos_columns)))
 
         binding.lifecycleOwner = this
         return binding.root
@@ -65,10 +72,11 @@ class ExploreFragment() : Fragment() {
                 }
             })
 
+            binding.viewModel?.setUpPhotosByKeywordEntity(mutableListOf("joyful"))
+
             binding.viewModel?.photosByKeyword?.observe(viewLifecycleOwner, Observer {
                 binding.rvExplore.adapter = ExploreRecyclerViewAdapter(it)
-                binding.rvExplore.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-                binding.rvExplore.addItemDecoration(GridItemDecoration(15, 2))
+                LogUtil.d(Types.COMMON, "item count: $it?.total()")
             })
         }
     }

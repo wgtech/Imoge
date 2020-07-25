@@ -11,11 +11,11 @@ class ExploreRepository {
 
     suspend fun getPhotosByKeywordEntity(
         api_unsplash_access : String,
-        query: String
+        keyword: String
     ): Flowable<PhotosByKeywordEntity> {
         return withContext(Dispatchers.IO) {
             ApiClient.unsplashClient.create(ApiClient.IApiService::class.java)
-                .getPhotosByKeyword(api_unsplash_access, query)
+                .getPhotosByKeyword(api_unsplash_access, keyword)
                 .onBackpressureBuffer()
                 .observeOn(AndroidSchedulers.from(Looper.getMainLooper()))
         }
