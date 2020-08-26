@@ -8,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
-import project.wgtech.imoge.explore.model.ExploreRepository
-import project.wgtech.imoge.explore.model.PhotosByKeywordEntity
+import project.wgtech.imoge.explore.datasource.ExploreRepository
+import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.*
 
 class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
@@ -20,24 +20,25 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
     val chips: LiveData<MutableList<String>>
         get() = _chips
 
-    private val _photosByKeyword = MutableLiveData<PhotosByKeywordEntity?>()
-    val photosByKeyword: LiveData<PhotosByKeywordEntity?>
-        get() = _photosByKeyword
+    private val _photos = MutableLiveData<UnsplashJsonObject?>()
+    val photos: LiveData<UnsplashJsonObject?>
+        get() = _photos
 
     init {
         _chips.postValue(provider.stringArray(R.array.test_array).toMutableList())
     }
 
-    fun setUpPhotosByKeywordEntity(keywords: MutableList<String>) {
+    fun removePhotos(keyword: String) {
+        // TODO
+    }
+    fun nextPhotos(keyword: String, page: Int) = loadPhotos(keyword, page)
+    fun loadPhotos(keyword: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-
-            for (keyword in keywords) {
-                repo.getPhotosByKeywordEntity(BuildConfig.api_unsplash_access, keyword)
-                    .subscribe(
-                    { v: PhotosByKeywordEntity? -> _photosByKeyword.postValue(v)},
-                    { t: Throwable -> t.printStackTrace() }
-                )
-            }
+            repo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
+                .subscribe(
+                { v: UnsplashJsonObject? -> _photos.postValue(v)},
+                { t: Throwable -> t.printStackTrace() }
+            )
         }
     }
 

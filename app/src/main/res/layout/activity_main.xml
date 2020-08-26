@@ -5,10 +5,7 @@
     <data>
         <variable
             name="activity"
-            type="project.wgtech.imoge.view.MainActivity" />
-        <variable
-            name="viewModel"
-            type="project.wgtech.imoge.explore.viewmodel.ExploreViewModel" />
+            type="project.wgtech.imoge.main.MainActivity" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="?android:attr/actionBarSize"
-            tools:context="project.wgtech.imoge.view.MainActivity" />
+            tools:context="project.wgtech.imoge.main.MainActivity" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"

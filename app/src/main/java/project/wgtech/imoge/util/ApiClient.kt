@@ -2,7 +2,7 @@ package project.wgtech.imoge.util
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Flowable
-import project.wgtech.imoge.explore.model.PhotosByKeywordEntity
+import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -16,10 +16,14 @@ object ApiClient {
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 
-    interface IApiService {
+    interface IUnsplashService {
+        // https://unsplash.com/documentation#search-photos
+        // https://api.unsplash.com/search/photos?query=minimal?client_id=CLIENT_ID
         @GET("/search/photos")
-        fun getPhotosByKeyword(
-            @Query("client_id") accessKey: String, @Query("query") query: String
-        ) : Flowable<PhotosByKeywordEntity>
+        fun photosByKeyword(
+            @Query("client_id") accessKey: String,
+            @Query("query") query: String,
+            @Query("page") page: Int
+        ) : Flowable<UnsplashJsonObject>
     }
 }

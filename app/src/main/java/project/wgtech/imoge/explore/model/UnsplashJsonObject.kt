@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.lang.StringBuilder
 
-data class PhotosByKeywordEntity(
+data class UnsplashJsonObject(
     @SerializedName("total")
     @Expose
     private var total: Int?,

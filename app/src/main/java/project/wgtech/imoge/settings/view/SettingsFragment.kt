@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import project.wgtech.imoge.R
-import project.wgtech.imoge.databinding.SettingsFragmentBinding
+import project.wgtech.imoge.databinding.FragmentSettingsBinding
 import project.wgtech.imoge.util.ResourceProviderImpl
 import project.wgtech.imoge.settings.viewmodel.SettingsViewModel
 
 class SettingsFragment : Fragment() {
 
-    private lateinit var binding: SettingsFragmentBinding
+    private lateinit var binding: FragmentSettingsBinding
 
     companion object {
         val instance = SettingsFragment()
@@ -23,7 +23,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.settings_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
         binding.lifecycleOwner = this
         return binding.root
     }
