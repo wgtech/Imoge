@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.item_recycler_explore.view.*
 import project.wgtech.imoge.R
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.explore.model.Results
-import project.wgtech.imoge.util.LogUtil
-import project.wgtech.imoge.util.Types
 
 class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -22,7 +20,8 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-        if (obj != null) items.addAll(obj!!.results())
+
+        obj?.results()?.forEach { items.add(it) }
 
         val viewHolder = ViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recycler_explore, parent, false))
@@ -32,10 +31,6 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val results: Results? = items[position]
-        LogUtil.d(Types.COMMON, "onBindViewHolder: $position")
-        results?.tags?.forEach {
-            LogUtil.d(Types.COMMON, it.title?.toString()!!)
-        }
 
         Glide.with(context)
             .asBitmap()
@@ -48,14 +43,19 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
     override fun getItemCount(): Int = items.size
 
     fun addItems(obj: UnsplashJsonObject?) {
-        if (obj?.results()?.size!! > 0) items.addAll(obj.results())
+        if (obj != null) items.addAll(obj.results())
         notifyDataSetChanged()
     }
 
-    fun removeItems() {
-        // TODO
-    }
+    fun removeItems(keyword: String) {
+        val iter = items.iterator()
 
+        while (iter.hasNext()) {
+            if (iter.next().keyword == keyword) iter.remove()
+        }
+
+        notifyDataSetChanged()
+    }
 }
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

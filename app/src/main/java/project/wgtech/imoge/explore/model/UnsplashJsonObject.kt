@@ -29,6 +29,9 @@ data class UnsplashJsonObject(
 }
 
 data class Results(
+
+    var keyword: String,
+
     @SerializedName("id")
     @Expose
     private var id: String?,

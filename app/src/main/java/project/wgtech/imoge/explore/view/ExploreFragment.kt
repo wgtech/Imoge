@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -42,15 +43,21 @@ class ExploreFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var keyword = "joyful"
+        var keyword = "happy"
         var page = 1
 
         binding.chipGroupExplore.apply {
+
             binding.viewModel?.chips?.observe(viewLifecycleOwner, Observer {
                 it.forEach {
                     val chip = ExploreChip(provider, it)
+                    chip.isChecked = (chip.text == keyword)
                     chip.setOnCheckedChangeListener { buttonView, isChecked ->
-                        if (isChecked) binding.viewModel!!.loadPhotos(buttonView.text.toString(), page)
+                        if (isChecked) {
+                            binding.viewModel!!.loadPhotos(buttonView.text.toString(), page)
+                        } else {
+                            (rvExplore.adapter as ExploreRecyclerViewAdapter).removeItems(buttonView.text.toString())
+                        }
                     }
                     addView(chip)
                 }
@@ -68,8 +75,9 @@ class ExploreFragment() : Fragment() {
 
             addOnScrollListener(object: RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+
                     if (!recyclerView.canScrollHorizontally(1)) { // 1 : end of view, -1 : start of view
-                        page += 1;
+                        page += 1
                         binding.viewModel!!.nextPhotos(keyword, page)
                     }
                 }

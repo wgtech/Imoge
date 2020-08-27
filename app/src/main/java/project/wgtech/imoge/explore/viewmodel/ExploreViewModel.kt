@@ -20,25 +20,26 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
     val chips: LiveData<MutableList<String>>
         get() = _chips
 
-    private val _photos = MutableLiveData<UnsplashJsonObject?>()
-    val photos: LiveData<UnsplashJsonObject?>
+    private val _photos = MutableLiveData<UnsplashJsonObject>()
+    val photos: LiveData<UnsplashJsonObject>
         get() = _photos
 
     init {
         _chips.postValue(provider.stringArray(R.array.test_array).toMutableList())
     }
 
-    fun removePhotos(keyword: String) {
-        // TODO
-    }
     fun nextPhotos(keyword: String, page: Int) = loadPhotos(keyword, page)
     fun loadPhotos(keyword: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
-                .subscribe(
-                { v: UnsplashJsonObject? -> _photos.postValue(v)},
-                { t: Throwable -> t.printStackTrace() }
-            )
+                .subscribe { response ->
+                    if (response.isSuccessful) {
+                        response.body().let {
+                            it?.results()?.forEach { element -> element.keyword = keyword }
+                            _photos.postValue(it)
+                        }
+                    }
+                }
         }
     }
 

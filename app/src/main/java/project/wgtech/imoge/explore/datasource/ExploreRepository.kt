@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.ApiClient
+import retrofit2.Response
 
 class ExploreRepository {
 
@@ -14,7 +15,7 @@ class ExploreRepository {
         api_unsplash_access : String,
         keyword: String,
         page: Int
-    ): Flowable<UnsplashJsonObject> {
+    ): Flowable<Response<UnsplashJsonObject>> {
         return withContext(Dispatchers.IO) {
             ApiClient.unsplashClient.create(ApiClient.IUnsplashService::class.java)
                 .photosByKeyword(api_unsplash_access, keyword, page)
