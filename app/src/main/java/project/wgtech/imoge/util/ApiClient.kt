@@ -3,6 +3,7 @@ package project.wgtech.imoge.util
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Flowable
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -24,6 +25,6 @@ object ApiClient {
             @Query("client_id") accessKey: String,
             @Query("query") query: String,
             @Query("page") page: Int
-        ) : Flowable<UnsplashJsonObject>
+        ) : Flowable<Response<UnsplashJsonObject>>
     }
 }
