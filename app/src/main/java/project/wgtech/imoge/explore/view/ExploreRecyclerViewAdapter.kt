@@ -5,45 +5,72 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.item_recycler_explore.view.*
+import kotlinx.android.synthetic.main.item_recycler_loading.view.*
 import project.wgtech.imoge.R
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.explore.model.Results
 
-class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : RecyclerView.Adapter<ViewHolder>() {
+class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var context: Context
-    private var items: ArrayList<Results> = ArrayList()
+    private var items: ArrayList<Results?> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    private val viewTypeItem = 0
+    private val viewTypeLoading = 1
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
 
         obj?.results()?.forEach { items.add(it) }
 
-        val viewHolder = ViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recycler_explore, parent, false))
-        viewHolder.bindView()
-        return viewHolder
+        if (viewType == viewTypeItem) {
+            val itemViewHolder = ItemViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_recycler_explore, parent, false))
+            itemViewHolder.bindView()
+            return itemViewHolder
+
+        } else {
+            val loadingViewHolder = LoadingViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_recycler_loading, parent, false))
+            loadingViewHolder.bindView()
+            return loadingViewHolder
+        }
+
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val results: Results? = items[position]
 
-        Glide.with(context)
-            .asBitmap()
-            .load(results?.urls?.thumb)
-            .optionalCenterCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.imageView)
+        if (holder is ItemViewHolder) {
+            Glide.with(context)
+                .asBitmap()
+                .load(results?.urls?.thumb)
+                .optionalCenterCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.imageView)
+
+        } else if (holder is LoadingViewHolder) {
+            holder.contentLoadingProgressBar.apply {
+
+            }.show()
+
+        }
+
     }
 
     override fun getItemCount(): Int = items.size
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
     fun addItems(obj: UnsplashJsonObject?) {
-        if (obj != null) items.addAll(obj.results())
+        if (obj != null) items.addAll(obj.results()) else items.addAll(emptyList())
         notifyDataSetChanged()
     }
 
@@ -51,18 +78,25 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
         val iter = items.iterator()
 
         while (iter.hasNext()) {
-            if (iter.next().keyword == keyword) iter.remove()
+            if (iter.next()?.keyword == keyword) iter.remove()
         }
 
         notifyDataSetChanged()
     }
 }
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var imageView: AppCompatImageView = itemView.imageViewExplore
 
     fun bindView() {
     }
+}
 
+class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    var contentLoadingProgressBar: ContentLoadingProgressBar = itemView.progressBarLoading
+
+    fun bindView() {
+    }
 }
