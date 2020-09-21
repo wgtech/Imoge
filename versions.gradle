@@ -19,7 +19,7 @@ versions.app = app
 // AndroidX
 def androidX = [:]
 androidX.appCompat = "1.3.0-alpha02"
-androidX.constraintLayout = "2.0.0"
+androidX.constraintLayout = "2.0.1"
 androidX.navigation = "2.3.0"
 androidX.lifeCycle = "2.2.0"
 androidX.recyclerView = "1.2.0-alpha05"
