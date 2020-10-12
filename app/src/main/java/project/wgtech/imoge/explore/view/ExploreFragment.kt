@@ -1,5 +1,6 @@
 package project.wgtech.imoge.explore.view
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -67,10 +68,17 @@ class ExploreFragment() : Fragment() {
         }
 
         binding.rvExplore.apply {
+            val spacing = resources.getDimensionPixelSize(R.dimen.photos_spacing) / 2
             itemAnimator = DefaultItemAnimator()
-            layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.photos_columns));
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-            addItemDecoration(GridItemDecoration(resources.getDimensionPixelSize(R.dimen.photos_spacing), resources.getInteger(R.integer.photos_columns)))
+            layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.photos_columns))
+            setPadding(spacing, spacing, spacing, spacing)
+            clipToPadding = false
+            clipChildren = false
+            addItemDecoration(object: RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    outRect.set(spacing, spacing, spacing, spacing)
+                }
+            })
 
             adapter = ExploreRecyclerViewAdapter(binding.viewModel!!.photos.value)
 
