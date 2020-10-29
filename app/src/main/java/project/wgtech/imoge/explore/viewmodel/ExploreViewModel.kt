@@ -8,13 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
-import project.wgtech.imoge.explore.datasource.ExploreRepository
+import project.wgtech.imoge.explore.datasource.RemoteRepository
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.*
 
 class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
 
-    private val repo: ExploreRepository = ExploreRepository()
+    private val repo: RemoteRepository = RemoteRepository()
 
     private val _chips = MutableLiveData<MutableList<String>>()
     val chips: LiveData<MutableList<String>>

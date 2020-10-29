@@ -9,7 +9,7 @@ import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.ApiClient
 import retrofit2.Response
 
-class ExploreRepository {
+class RemoteRepository {
 
     suspend fun photosByKeyword(
         api_unsplash_access : String,
