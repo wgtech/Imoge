@@ -9,9 +9,8 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import kotlinx.android.synthetic.main.item_recycler_explore.view.*
-import kotlinx.android.synthetic.main.item_recycler_loading.view.*
-import project.wgtech.imoge.R
+import project.wgtech.imoge.databinding.ItemRecyclerExploreBinding
+import project.wgtech.imoge.databinding.ItemRecyclerLoadingBinding
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.explore.model.Results
 
@@ -29,14 +28,14 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
         obj?.results()?.forEach { items.add(it) }
 
         if (viewType == viewTypeItem) {
-            val itemViewHolder = ItemViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_recycler_explore, parent, false))
+            val itemViewHolder = ItemViewHolder(
+                ItemRecyclerExploreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             itemViewHolder.bindView()
             return itemViewHolder
 
         } else {
-            val loadingViewHolder = LoadingViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_recycler_loading, parent, false))
+            val loadingViewHolder = LoadingViewHolder(
+                ItemRecyclerLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             loadingViewHolder.bindView()
             return loadingViewHolder
         }
@@ -85,17 +84,21 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
     }
 }
 
-class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ItemViewHolder(
+    private val viewBinding: ItemRecyclerExploreBinding
+) : RecyclerView.ViewHolder(viewBinding.root) {
 
-    var imageView: AppCompatImageView = itemView.imageViewExplore
+    var imageView: AppCompatImageView = viewBinding.imageViewExplore
 
     fun bindView() {
     }
 }
 
-class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class LoadingViewHolder(
+    private val viewBinding: ItemRecyclerLoadingBinding
+) : RecyclerView.ViewHolder(viewBinding.root) {
 
-    var contentLoadingProgressBar: ContentLoadingProgressBar = itemView.progressBarLoading
+    var contentLoadingProgressBar: ContentLoadingProgressBar = viewBinding.progressBarLoading
 
     fun bindView() {
     }

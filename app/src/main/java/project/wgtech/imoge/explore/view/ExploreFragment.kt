@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_explore.*
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.FragmentExploreBinding
 import project.wgtech.imoge.explore.viewmodel.ExploreViewModel
@@ -58,7 +57,7 @@ class ExploreFragment() : Fragment() {
                         if (isChecked) {
                             binding.viewModel!!.loadPhotos(buttonView.text.toString(), page)
                         } else {
-                            (rvExplore.adapter as ExploreRecyclerViewAdapter).removeItems(buttonView.text.toString())
+                            (binding.rvExplore.adapter as ExploreRecyclerViewAdapter).removeItems(buttonView.text.toString())
                         }
                     }
                     addView(chip)
@@ -97,8 +96,8 @@ class ExploreFragment() : Fragment() {
         }
 
         binding.viewModel!!.photos.observe(viewLifecycleOwner, Observer {
-            rvExplore.recycledViewPool.clear()
-            (rvExplore.adapter as ExploreRecyclerViewAdapter).addItems(it)
+            binding.rvExplore.recycledViewPool.clear()
+            (binding.rvExplore.adapter as ExploreRecyclerViewAdapter).addItems(it)
         })
 
 

@@ -1,7 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
 
 def localProperties = new Properties()
 localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
@@ -55,6 +57,7 @@ android {
     // Android Studio 4.0+
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
 }
