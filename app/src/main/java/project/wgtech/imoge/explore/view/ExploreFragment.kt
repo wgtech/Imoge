@@ -54,7 +54,7 @@ class ExploreFragment() : Fragment() {
                     chip.isChecked = (chip.text == keyword)
                     chip.setOnCheckedChangeListener { buttonView, isChecked ->
                         if (isChecked) {
-                            binding.viewModel!!.loadPhotos(buttonView.text.toString(), page)
+                            binding.viewModel!!.loadPhotos(provider, buttonView.text.toString(), page)
                         } else {
                             (binding.rvExplore.adapter as ExploreRecyclerViewAdapter).removeItems(buttonView.text.toString())
                         }
@@ -87,8 +87,7 @@ class ExploreFragment() : Fragment() {
                         page += 1
                         (recyclerView.adapter!! as ExploreRecyclerViewAdapter).addItems(null)
                         recyclerView.adapter!!.notifyItemInserted(recyclerView.adapter!!.itemCount + 1)
-                        binding.viewModel!!.nextPhotos(keyword, page)
-                        recyclerView.adapter
+                        binding.viewModel!!.nextPhotos(provider, keyword, page)
                     }
                 }
             })
@@ -100,7 +99,7 @@ class ExploreFragment() : Fragment() {
         })
 
 
-        binding.viewModel!!.loadPhotos(keyword, 1)
+        binding.viewModel!!.loadPhotos(provider, keyword, 1)
         binding.executePendingBindings()
     }
 

@@ -8,13 +8,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
+import project.wgtech.imoge.explore.datasource.LocalRepository
 import project.wgtech.imoge.explore.datasource.RemoteRepository
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.*
 
 class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
 
-    private val repo: RemoteRepository = RemoteRepository()
+    private val remoteRepo: RemoteRepository = RemoteRepository()
+    private val localRepo: LocalRepository = LocalRepository()
 
     private val _chips = MutableLiveData<MutableList<String>>()
     val chips: LiveData<MutableList<String>>
@@ -25,13 +27,13 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
         get() = _photos
 
     init {
-        _chips.postValue(provider.stringArray(R.array.test_array).toMutableList())
+        _chips.postValue(localRepo.getChips(provider))
     }
 
-    fun nextPhotos(keyword: String, page: Int) = loadPhotos(keyword, page)
-    fun loadPhotos(keyword: String, page: Int) {
+    fun nextPhotos(provider: ResourceProviderImpl, keyword: String, page: Int) = loadPhotos(provider, keyword, page)
+    fun loadPhotos(provider: ResourceProviderImpl, keyword: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
+            remoteRepo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
                 .subscribe { response ->
                     if (response.isSuccessful) {
                         response.body().let {
