@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name="project.wgtech.imoge.main.MainActivity" />
+        <activity android:name="project.wgtech.imoge.explore.view.ExploreDetailActivity" />
 
         <receiver android:name="project.wgtech.imoge.common.CommonBroadcastReceiver">
             <intent-filter>

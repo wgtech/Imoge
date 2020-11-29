@@ -1,9 +1,10 @@
 package project.wgtech.imoge.explore.view
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.RecyclerView
@@ -28,10 +29,8 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
         obj?.results()?.forEach { items.add(it) }
 
         if (viewType == viewTypeItem) {
-            val itemViewHolder = ItemViewHolder(
+            return ItemViewHolder(
                 ItemRecyclerExploreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-            itemViewHolder.bindView()
-            return itemViewHolder
 
         } else {
             val loadingViewHolder = LoadingViewHolder(
@@ -47,11 +46,13 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
 
         if (holder is ItemViewHolder) {
             Glide.with(context)
-                .asBitmap()
+                .asDrawable()
                 .load(results?.urls?.thumb)
                 .optionalCenterCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView)
+
+            holder.bindView(results)
 
         } else if (holder is LoadingViewHolder) {
             holder.contentLoadingProgressBar.apply {
@@ -90,7 +91,20 @@ class ItemViewHolder(
 
     var imageView: AppCompatImageView = viewBinding.imageViewExplore
 
-    fun bindView() {
+    fun bindView(position: Int) {
+        var context = viewBinding.root.context
+        imageView.setOnClickListener { _ ->
+            Toast.makeText(context, "Image $position clicked", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun bindView(results: Results?) {
+        imageView.setOnClickListener { _ ->
+            val context = viewBinding.root.context
+            context.startActivity(Intent(context.applicationContext, ExploreDetailActivity::class.java).apply {
+                putExtra("url", results?.urls?.raw)
+            })
+        }
     }
 }
 
