@@ -1,21 +1,22 @@
 package project.wgtech.imoge.explore.view
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ActivityDetailBinding
 
 class ExploreDetailActivity : AppCompatActivity() {
+    private val TAG = ExploreDetailActivity::class.java.simpleName
 
     private lateinit var binding : ActivityDetailBinding
     private lateinit var scaleGestureDetector: ScaleGestureDetector
@@ -25,7 +26,11 @@ class ExploreDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Toast.makeText(baseContext, intent?.getStringExtra("url"), Toast.LENGTH_SHORT).show()
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "url: ${intent?.getStringExtra("url")}")
+            Toast.makeText(baseContext, intent?.getStringExtra("url"), Toast.LENGTH_SHORT).show()
+        }
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         appCompatImageView = binding.imageViewDetailExplore
         scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
@@ -33,11 +38,9 @@ class ExploreDetailActivity : AppCompatActivity() {
         Glide.with(baseContext)
             .asDrawable()
             .load(intent?.getStringExtra("url"))
-            .centerInside()
+            .apply(RequestOptions().centerCrop())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.imageViewDetailExplore)
-
-
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
