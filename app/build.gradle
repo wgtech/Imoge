@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 def localProperties = new Properties()
@@ -95,6 +96,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$versions.androidX.navigation"
     implementation "androidx.navigation:navigation-runtime-ktx:$versions.androidX.navigation"
     implementation "androidx.recyclerview:recyclerview:$versions.androidX.recyclerView"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.androidX.swipeRefreshLayout"
     implementation "androidx.viewpager2:viewpager2:$versions.androidX.viewPager2"
     implementation "com.google.android.material:material:$versions.deps.googleMaterial"
     implementation "com.airbnb.android:lottie:$versions.deps.lottie"
