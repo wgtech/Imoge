@@ -1,12 +1,13 @@
 package project.wgtech.imoge.explore.view
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -19,9 +20,6 @@ class ExploreDetailActivity : AppCompatActivity() {
     private val TAG = ExploreDetailActivity::class.java.simpleName
 
     private lateinit var binding : ActivityDetailBinding
-    private lateinit var scaleGestureDetector: ScaleGestureDetector
-    var scaleFactor: Float = 1.0f
-    private lateinit var appCompatImageView: AppCompatImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,30 +29,30 @@ class ExploreDetailActivity : AppCompatActivity() {
             Toast.makeText(baseContext, intent?.getStringExtra("url"), Toast.LENGTH_SHORT).show()
         }
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.apply {
+                clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                } else {
+                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                }
+                statusBarColor = Color.TRANSPARENT
+            }
+
+        }
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        appCompatImageView = binding.imageViewDetailExplore
-        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
         Glide.with(baseContext)
             .asDrawable()
             .load(intent?.getStringExtra("url"))
-            .apply(RequestOptions().centerCrop())
+            .apply(RequestOptions().fitCenter())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.imageViewDetailExplore)
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        scaleGestureDetector.onTouchEvent(event)
-        return true
-    }
-
-    inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-        override fun onScale(detector: ScaleGestureDetector?): Boolean {
-            scaleFactor *= detector?.scaleFactor!!
-            scaleFactor = 0.1f.coerceAtLeast(scaleFactor.coerceAtMost(10.0f))
-            appCompatImageView.scaleX = scaleFactor
-            appCompatImageView.scaleY = scaleFactor
-            return true;
-        }
+            .into(binding.pinchableImageViewExplore)
     }
 }
