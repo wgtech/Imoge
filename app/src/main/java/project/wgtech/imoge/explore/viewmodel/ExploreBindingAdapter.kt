@@ -1,7 +1,6 @@
 package project.wgtech.imoge.explore.viewmodel
 
 import android.util.Log
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

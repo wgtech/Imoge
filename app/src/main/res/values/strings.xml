@@ -1,6 +1,9 @@
 <resources>
     <!-- Common -->
     <string name="app_name">Imoge</string>
+    <string name="okay">Okay</string>
+    <string name="error_common">Error</string>
+    <string name="error_404">Error 404</string>
     <string-array name="test_array">
         <item>happy</item>
         <item>sunshine</item>
