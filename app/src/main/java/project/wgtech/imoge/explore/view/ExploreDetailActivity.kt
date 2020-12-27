@@ -9,9 +9,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ActivityDetailBinding
@@ -23,12 +20,6 @@ class ExploreDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "url: ${intent?.getStringExtra("url")}")
-            Toast.makeText(baseContext, intent?.getStringExtra("url"), Toast.LENGTH_SHORT).show()
-        }
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.apply {
@@ -43,16 +34,14 @@ class ExploreDetailActivity : AppCompatActivity() {
                 }
                 statusBarColor = Color.TRANSPARENT
             }
-
         }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+        binding.imageUrl = intent?.getStringExtra("url")
 
-        Glide.with(baseContext)
-            .asDrawable()
-            .load(intent?.getStringExtra("url"))
-            .apply(RequestOptions().fitCenter())
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.pinchableImageViewExplore)
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "url: ${binding.imageUrl}")
+            Toast.makeText(baseContext, binding.imageUrl, Toast.LENGTH_SHORT).show()
+        }
     }
 }
