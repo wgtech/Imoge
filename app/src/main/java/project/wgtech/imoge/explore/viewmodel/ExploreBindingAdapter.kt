@@ -13,21 +13,6 @@ import project.wgtech.imoge.explore.view.PinchZoomableImageView
 object ExploreBindingAdapter {
 
     @JvmStatic
-    @BindingAdapter("thumbImageUrl")
-    fun bindUrlThumbWithGlide(view: AppCompatImageView?, stringifyUrl: String?) {
-        Log.d(CommonEnumeration.TAG.stringify, "bindUrlWithGlide: ")
-        view?.context?.let {
-            Glide.with(it)
-                .asDrawable()
-                .load(stringifyUrl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .apply(RequestOptions().optionalCenterCrop())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(view)
-        }
-    }
-
-    @JvmStatic
     @BindingAdapter("imageUrl")
     fun bindUrlWithGlide(view: PinchZoomableImageView?, stringifyUrl: String?) {
         Log.d(CommonEnumeration.TAG.stringify, "bindUrlWithGlide: ")
