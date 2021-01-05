@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.wgtech.imoge.BuildConfig
-import project.wgtech.imoge.R
+import project.wgtech.imoge.util.ExceptionHandleUtil
 import project.wgtech.imoge.explore.datasource.LocalRepository
 import project.wgtech.imoge.explore.datasource.RemoteRepository
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.*
+import java.lang.Exception
 
 class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
 
@@ -34,14 +35,21 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
     fun loadPhotos(provider: ResourceProviderImpl, keyword: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             remoteRepo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
-                .subscribe { response ->
-                    if (response.isSuccessful) {
-                        response.body().let {
-                            it?.results()?.forEach { element -> element.keyword = keyword }
-                            _photos.postValue(it)
+                .doOnError { t -> t.printStackTrace() }
+                .subscribe(
+                    // onNext
+                    { it ->
+                        if (it.isSuccessful) {
+                            it.body().let {
+                                it?.results()?.forEach { element -> element.keyword = keyword }
+                                _photos.postValue(it)
+                            }
                         }
-                    }
-                }
+                    },
+                    // onError
+                    {
+                        ExceptionHandleUtil(it as Exception, provider.context()).showDialog()
+                    })
         }
     }
 

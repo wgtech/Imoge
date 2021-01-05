@@ -10,6 +10,9 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ItemRecyclerExploreBinding
 import project.wgtech.imoge.databinding.ItemRecyclerLoadingBinding
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
@@ -48,8 +51,10 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
             Glide.with(context)
                 .asDrawable()
                 .load(results?.urls?.thumb)
-                .optionalCenterCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .apply(RequestOptions().optionalCenterCrop())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.ic_round_error)
                 .into(holder.imageView)
 
             holder.bindView(results)
