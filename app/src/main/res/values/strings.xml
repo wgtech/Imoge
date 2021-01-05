@@ -24,5 +24,6 @@
     <!-- Widget -->
 
     <!-- Message/Text -->
+    <string name="error_404_text">Your connection is unacceptable or missed, Do you want to re-connect?</string>
 
 </resources>
