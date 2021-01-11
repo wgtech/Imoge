@@ -26,12 +26,14 @@ class ExceptionHandleUtil(private val exception: Exception, private val context:
     }
 
     fun showToast() = Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-    fun showDialog() {
+    fun showDialog(positiveActionAsParam: () -> Unit, negativeActionAsParam: () -> Unit) {
         AlertDialog.Builder(context, R.style.AlertDialogTheme)
+            .setCancelable(false)
             .setIcon(iconId)
             .setTitle(title)
             .setMessage(text)
-            .setPositiveButton(R.string.okay) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.okay) { dialog, _ -> dialog.dismiss(); positiveActionAsParam() }
+            .setNegativeButton(R.string.no) { dialog, _ -> dialog.dismiss(); negativeActionAsParam() }
             .show()
     }
 }

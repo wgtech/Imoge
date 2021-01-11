@@ -1,5 +1,6 @@
 package project.wgtech.imoge.explore.viewmodel
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,7 +36,12 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
     fun loadPhotos(provider: ResourceProviderImpl, keyword: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             remoteRepo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
-                .doOnError { t -> t.printStackTrace() }
+                .doOnError { t ->
+                    t.printStackTrace()
+                    ExceptionHandleUtil(t as Exception, provider.context())
+                        .showDialog(
+                            { loadPhotos(provider, keyword, page) }, { (provider.context() as AppCompatActivity).finish() })
+                }
                 .subscribe(
                     // onNext
                     { it ->
@@ -48,7 +54,7 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
                     },
                     // onError
                     {
-                        ExceptionHandleUtil(it as Exception, provider.context()).showDialog()
+
                     })
         }
     }
