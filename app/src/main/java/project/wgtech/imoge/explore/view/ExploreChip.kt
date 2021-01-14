@@ -4,7 +4,7 @@ import com.google.android.material.chip.Chip
 import project.wgtech.imoge.R
 import project.wgtech.imoge.util.ResourceProvider
 
-class ExploreChip(provider: ResourceProvider, chipText: String) : Chip(provider.context()) {
+class ExploreChip(provider: ResourceProvider, chipText: String) : Chip(provider.context) {
 
     init {
         text = chipText

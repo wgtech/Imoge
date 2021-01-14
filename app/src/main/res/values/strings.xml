@@ -5,6 +5,7 @@
     <string name="no">No</string>
     <string name="error_common">Error</string>
     <string name="error_404">Error 404</string>
+    <string name="error_408">Error 408</string>
     <string-array name="test_array">
         <item>happy</item>
         <item>sunshine</item>
@@ -26,5 +27,6 @@
 
     <!-- Message/Text -->
     <string name="error_404_text">Your connection is unacceptable or missed, Do you want to re-connect?</string>
+    <string name="error_408_text">Your connection is timed out, Do you want to re-connect?</string>
 
 </resources>

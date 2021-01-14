@@ -1,6 +1,5 @@
 package project.wgtech.imoge.explore.viewmodel
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,17 +7,23 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import project.wgtech.imoge.BuildConfig
-import project.wgtech.imoge.util.ExceptionHandleUtil
 import project.wgtech.imoge.explore.datasource.LocalRepository
 import project.wgtech.imoge.explore.datasource.RemoteRepository
+import project.wgtech.imoge.explore.model.Status
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import project.wgtech.imoge.util.*
 import java.lang.Exception
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
 
     private val remoteRepo: RemoteRepository = RemoteRepository()
     private val localRepo: LocalRepository = LocalRepository()
+
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
     private val _chips = MutableLiveData<MutableList<String>>()
     val chips: LiveData<MutableList<String>>
@@ -38,10 +43,13 @@ class ExploreViewModel(provider: ResourceProviderImpl) : ViewModel() {
             remoteRepo.photosByKeyword(BuildConfig.api_unsplash_access, keyword, page)
                 .doOnError { t ->
                     t.printStackTrace()
-                    ExceptionHandleUtil(t as Exception, provider.context())
-                        .showDialog(
-                            { loadPhotos(provider, keyword, page) }, { (provider.context() as AppCompatActivity).finish() })
+                    when (t) {
+                        is UnknownHostException -> _status.value = Status.ERROR_404
+                        is SocketTimeoutException -> _status.value = Status.ERROR_408
+                        is Exception -> _status.value = Status.ERROR_ETC
+                    }
                 }
+                //.retryWhen { } // TODO 재시도하는 방법 구현하기
                 .subscribe(
                     // onNext
                     { it ->
