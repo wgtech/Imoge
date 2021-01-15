@@ -6,6 +6,9 @@ on:
   pull_request:
 
 jobs:
+## Android Run Unit Tests
+  test:
+    name: Android Run Unit Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -31,6 +34,7 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test --stacktrace
 
+## Android Build
   build:
     name: Android Build
     runs-on: ubuntu-latest
