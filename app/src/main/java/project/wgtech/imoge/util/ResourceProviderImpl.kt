@@ -9,9 +9,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import org.jetbrains.annotations.NotNull
 
-class ResourceProviderImpl(@NotNull private val context: Context) : ResourceProvider {
+class ResourceProviderImpl(@NotNull override val context: Context) : ResourceProvider {
 
-    override fun context(): Context = context
     override fun string(resId: Int): String = context.getString(resId)
     override fun stringArray(resId: Int): Array<String> = context.resources.getStringArray(resId)
     override fun drawable(resId: Int): Drawable? = context.getDrawable(resId)
@@ -19,7 +18,7 @@ class ResourceProviderImpl(@NotNull private val context: Context) : ResourceProv
 }
 
 interface ResourceProvider {
-    fun context() : Context
+    val context : Context
     fun string(@StringRes resId: Int) : String
     fun stringArray(resId: Int) : Array<String>
     fun drawable(@DrawableRes resId: Int) : Drawable?

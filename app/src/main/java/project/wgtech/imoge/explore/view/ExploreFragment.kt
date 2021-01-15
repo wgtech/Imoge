@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.FragmentExploreBinding
 import project.wgtech.imoge.explore.viewmodel.ExploreViewModel
@@ -54,9 +55,16 @@ class ExploreFragment() : Fragment() {
                     chip.isChecked = (chip.text == keyword)
                     chip.setOnCheckedChangeListener { buttonView, isChecked ->
                         if (isChecked) {
-                            binding.viewModel!!.loadPhotos(provider, buttonView.text.toString(), page)
+                            if (BuildConfig.DEBUG) Toast.makeText(context, "${buttonView.text.toString()}, $isChecked", Toast.LENGTH_SHORT).show()
+                            binding.viewModel!!.loadPhotos(
+                                provider,
+                                buttonView.text.toString(),
+                                page
+                            )
                         } else {
-                            (binding.rvExplore.adapter as ExploreRecyclerViewAdapter).removeItems(buttonView.text.toString())
+                            (binding.rvExplore.adapter as ExploreRecyclerViewAdapter).removeItems(
+                                buttonView.text.toString()
+                            )
                         }
                     }
                     addView(chip)
@@ -92,6 +100,14 @@ class ExploreFragment() : Fragment() {
                 }
             })
         }
+
+        binding.viewModel!!.status.observe(viewLifecycleOwner, {
+            if (it.code >= 400) {
+                ExceptionHandleUtil(provider.context, provider.drawable(it.drawableId),
+                    provider.context.getString(it.titleId), provider.context.getString(it.descriptionId))
+                    .showDialog({ binding.viewModel!!.loadPhotos(provider, keyword, page) }, { requireActivity().finish() })
+            }
+        })
 
         binding.viewModel!!.photos.observe(viewLifecycleOwner, Observer {
             binding.rvExplore.recycledViewPool.clear()
