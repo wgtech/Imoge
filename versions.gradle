@@ -2,8 +2,8 @@ ext.versions = [:]
 
 // Plugins
 def plugins = [:]
-plugins.kotlin = "1.4.20"
-plugins.gradle = "4.1.1"
+plugins.kotlin = "1.4.30"
+plugins.gradle = "4.1.2"
 versions.plugins = plugins
 
 // App build
