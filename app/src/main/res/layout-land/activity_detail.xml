@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <project.wgtech.imoge.explore.view.PinchZoomableImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:id="@+id/pinchZoomableImageView"
+            app:imageUrl="@{imageUrl}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mtrl_toolbar_default_height"
+            android:background="@drawable/shape_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/imageButtonSave"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:padding="10dp"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintDimensionRatio="W, 1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/imageButtonFavorite"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/ic_round_save_alt" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/imageButtonFavorite"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:padding="10dp"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintDimensionRatio="W, 1:1"
+                app:layout_constraintLeft_toRightOf="@id/imageButtonSave"
+                app:layout_constraintRight_toLeftOf="@id/imageButtonInfo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/ic_star_outline" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/imageButtonInfo"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:padding="10dp"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintDimensionRatio="W, 1:1"
+                app:layout_constraintLeft_toRightOf="@id/imageButtonFavorite"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/ic_round_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

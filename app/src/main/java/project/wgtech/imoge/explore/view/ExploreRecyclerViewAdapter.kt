@@ -1,5 +1,6 @@
 package project.wgtech.imoge.explore.view
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ItemRecyclerExploreBinding
 import project.wgtech.imoge.databinding.ItemRecyclerLoadingBinding
@@ -48,8 +51,21 @@ class ExploreRecyclerViewAdapter(private var obj: UnsplashJsonObject?) : Recycle
         val results: Results? = items[position]
 
         if (holder is ItemViewHolder) {
+            val shimmerDrawable = ShimmerDrawable().apply {
+                setShimmer(Shimmer.AlphaHighlightBuilder()
+                    .setAutoStart(true)
+                    .setDirection(Shimmer.Direction.TOP_TO_BOTTOM)
+                    .setRepeatCount(ValueAnimator.INFINITE)
+                    .setDuration(3000L)
+                    .setShape(Shimmer.Shape.RADIAL)
+                    .setBaseAlpha(.8f)
+                    .build())
+                setVisible(true, true)
+            }
+
             Glide.with(context)
                 .asDrawable()
+                .placeholder(shimmerDrawable)
                 .load(results?.urls?.thumb)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .apply(RequestOptions().optionalCenterCrop())
