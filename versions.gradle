@@ -12,8 +12,8 @@ app.compileSdkVersion = 29
 app.buildToolsVersion = "29.0.3"
 app.minSdkVersion = 23
 app.targetSdkVersion = 29
-app.versionCode = 10000
-app.versionName = "1.0.0"
+app.versionCode = 600
+app.versionName = "0.6.0"
 versions.app = app
 
 // AndroidX
