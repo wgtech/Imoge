@@ -44,12 +44,12 @@ object ExploreBindingAdapter {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Toast.makeText(view.context, "onLoadFailed", Toast.LENGTH_SHORT).show()
+                        if (BuildConfig.DEBUG) Toast.makeText(view.context, "onLoadFailed", Toast.LENGTH_SHORT).show()
                         return false
                     }
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        Toast.makeText(view.context, "onResourceReady", Toast.LENGTH_SHORT).show()
+                        if (BuildConfig.DEBUG) Toast.makeText(view.context, "onResourceReady", Toast.LENGTH_SHORT).show()
                         return false
                     }
 
