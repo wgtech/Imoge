@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.common.CommonEnumeration
 import project.wgtech.imoge.explore.view.PinchZoomableImageView
 

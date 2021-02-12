@@ -124,6 +124,8 @@ class ItemViewHolder(
             val context = viewBinding.root.context
             context.startActivity(Intent(context.applicationContext, ExploreDetailActivity::class.java).apply {
                 putExtra("url", results?.urls?.raw)
+                putExtra("description", results?.description)
+                putExtra("createdAt", results?.createdAt)
             })
         }
     }

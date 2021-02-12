@@ -34,28 +34,28 @@ data class Results(
 
     @SerializedName("id")
     @Expose
-    private var id: String?,
+    var id: String?,
     @SerializedName("created_at")
     @Expose
-    private var createdAt: String?,
+    var createdAt: String?,
     @SerializedName("updated_at")
     @Expose
-    private var updatedAt: String?,
+    var updatedAt: String?,
     @SerializedName("promoted_at")
     @Expose
-    private var promotedAt: Any?,
+    var promotedAt: Any?,
     @SerializedName("width")
     @Expose
-    private var width: Int?,
+    var width: Int?,
     @SerializedName("height")
     @Expose
-    private var height: Int?,
+    var height: Int?,
     @SerializedName("color")
     @Expose
-    private var color: String?,
+    var color: String?,
     @SerializedName("description")
     @Expose
-    private var description: String?,
+    var description: String?,
     @SerializedName("alt_description")
     @Expose
     var altDescription: String?,

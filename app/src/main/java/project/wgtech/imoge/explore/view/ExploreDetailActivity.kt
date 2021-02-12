@@ -1,15 +1,15 @@
 package project.wgtech.imoge.explore.view
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
-import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
 import project.wgtech.imoge.databinding.ActivityDetailBinding
 
@@ -39,9 +39,20 @@ class ExploreDetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.imageUrl = intent?.getStringExtra("url")
 
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "url: ${binding.imageUrl}")
-            Toast.makeText(baseContext, binding.imageUrl, Toast.LENGTH_SHORT).show()
+        binding.imageButtonInfo.setOnClickListener {
+            val dialogOnClickListener = DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> dialog.dismiss()
+                    DialogInterface.BUTTON_NEGATIVE -> dialog.dismiss()
+                }
+            }
+
+            AlertDialog
+                    .Builder(ContextThemeWrapper(this@ExploreDetailActivity, R.style.AlertDialogTheme))
+                    .setTitle(intent?.getStringExtra("description"))
+                    .setMessage(binding.imageUrl)
+                    .setPositiveButton(R.string.okay, dialogOnClickListener)
+                    .show()
         }
     }
 }
