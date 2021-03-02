@@ -3,6 +3,8 @@ package project.wgtech.imoge.util
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.core.Flowable
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import retrofit2.Response
 import retrofit2.Retrofit
