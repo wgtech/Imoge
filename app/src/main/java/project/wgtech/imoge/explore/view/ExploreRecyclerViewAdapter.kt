@@ -126,6 +126,11 @@ class ItemViewHolder(
                 putExtra("url", results?.urls?.raw)
                 putExtra("description", results?.description)
                 putExtra("createdAt", results?.createdAt)
+
+                // TODO user info, and photos statistics
+                putExtra("id", results?.user?.id)
+
+
             })
         }
     }

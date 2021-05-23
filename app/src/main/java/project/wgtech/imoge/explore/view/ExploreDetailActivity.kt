@@ -50,7 +50,7 @@ class ExploreDetailActivity : AppCompatActivity() {
             AlertDialog
                     .Builder(ContextThemeWrapper(this@ExploreDetailActivity, R.style.AlertDialogTheme))
                     .setTitle(intent?.getStringExtra("description"))
-                    .setMessage(binding.imageUrl)
+                    .setMessage("${binding.imageUrl}\n")
                     .setPositiveButton(R.string.okay, dialogOnClickListener)
                     .show()
         }

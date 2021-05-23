@@ -5,11 +5,13 @@ import io.reactivex.rxjava3.core.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import project.wgtech.imoge.BuildConfig
+import project.wgtech.imoge.explore.model.PhotoStatistics
 import project.wgtech.imoge.explore.model.UnsplashJsonObject
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
@@ -41,5 +43,12 @@ object ApiClient {
             @Query("query") query: String,
             @Query("page") page: Int
         ) : Flowable<Response<UnsplashJsonObject>>
+
+        // https://unsplash.com/documentation#get-a-photos-statistics
+        // https://api.unsplash.com/search/photos?query=minimal?client_id=CLIENT_ID/statistics
+        @GET("/photos/{photoId}/statistics")
+        fun statisticsByPhotoId(
+            @Path("photoId") photoId: String
+        ) : Flowable<PhotoStatistics>
     }
 }
