@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.R
+import project.wgtech.imoge.common.CommonViewModelFactory
 import project.wgtech.imoge.databinding.FragmentExploreBinding
 import project.wgtech.imoge.explore.viewmodel.ExploreViewModel
 import project.wgtech.imoge.util.*
@@ -36,7 +37,7 @@ class ExploreFragment() : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_explore, container, false)
         binding.lifecycleOwner = this
-        binding.viewModel = ExploreViewModel(provider)
+        binding.viewModel = CommonViewModelFactory(requireContext()).create(ExploreViewModel::class.java)
         return binding.root
     }
 

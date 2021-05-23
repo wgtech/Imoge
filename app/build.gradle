@@ -8,6 +8,8 @@ plugins {
 
 def localProperties = new Properties()
 localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+def keyProperties = new Properties()
+keyProperties.load(project.rootProject.file("keystore.properties").newDataInputStream())
 
 android {
     compileSdkVersion versions.app.compileSdkVersion
@@ -43,22 +45,38 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        defaultConfig {
+            storeFile file(keyProperties.get('storeFile'))
+            storePassword keyProperties.get('storePassword')
+            keyAlias keyProperties['keyAlias']
+            keyPassword keyProperties['keyPassword']
+        }
+    }
+
     flavorDimensions "version"
     productFlavors {
-        develop {
+        lite {
             resConfigs('en', 'xhdpi')
         }
-        main {
+        full {
 
         }
     }
 
     buildTypes {
         debug {
+            manifestPlaceholders = [appName: "ImogeDebug"]
+            versionNameSuffix '-debug'
+            applicationIdSuffix '.debug'
+            debuggable true
             minifyEnabled false
+            shrinkResources false
         }
 
         release {
+            manifestPlaceholders = [appName: "Imoge"]
+            signingConfig signingConfigs.defaultConfig
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -116,4 +134,7 @@ dependencies {
     testImplementation "junit:junit:$versions.deps.jUnit"
     androidTestImplementation "androidx.test.ext:junit:$versions.deps.jUnitExt"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.deps.espresso"
+}
+
+task release (dependsOn: ['assembleRelease', 'bundleRelease']) {
 }

@@ -34,28 +34,28 @@ data class Results(
 
     @SerializedName("id")
     @Expose
-    private var id: String?,
+    var id: String?,
     @SerializedName("created_at")
     @Expose
-    private var createdAt: String?,
+    var createdAt: String?,
     @SerializedName("updated_at")
     @Expose
-    private var updatedAt: String?,
+    var updatedAt: String?,
     @SerializedName("promoted_at")
     @Expose
-    private var promotedAt: Any?,
+    var promotedAt: Any?,
     @SerializedName("width")
     @Expose
-    private var width: Int?,
+    var width: Int?,
     @SerializedName("height")
     @Expose
-    private var height: Int?,
+    var height: Int?,
     @SerializedName("color")
     @Expose
-    private var color: String?,
+    var color: String?,
     @SerializedName("description")
     @Expose
-    private var description: String?,
+    var description: String?,
     @SerializedName("alt_description")
     @Expose
     var altDescription: String?,
@@ -111,6 +111,39 @@ data class Urls(
 )
 
 data class User(
+    @SerializedName("id")
+    @Expose
+    var id: String?,
+    @SerializedName("updated_at")
+    @Expose
+    var updatedAt: String?,
+    @SerializedName("username")
+    @Expose
+    var username: String?,
+    @SerializedName("portfolio_url")
+    @Expose
+    var portfolioUrl: String?,
+    @SerializedName("bio")
+    @Expose
+    var bio: String?,
+    @SerializedName("location")
+    @Expose
+    var location: String?,
+    @SerializedName("total_likes")
+    @Expose
+    var totalLikes: Int?,
+    @SerializedName("total_photos")
+    @Expose
+    var totalPhotos: Int?,
+    @SerializedName("total_collections")
+    @Expose
+    var totalCollections: Int?,
+    @SerializedName("links")
+    @Expose
+    var links: Links?
+)
+
+data class Links(
     @SerializedName("self")
     @Expose
     var self: String?,
@@ -388,3 +421,41 @@ data class UserProfileImage(
     @Expose
     var large: String?
 )
+
+///// Photo Statistics ////
+
+data class PhotoStatistics(
+    @SerializedName("id") val id : String,
+    @SerializedName("downloads") val downloads : Downloads,
+    @SerializedName("views") val views : Views,
+    @SerializedName("likes") val likes : Likes
+)
+
+data class Downloads (
+    @SerializedName("total") val total : Int,
+    @SerializedName("historical") val historical : Historical
+)
+
+data class Historical (
+    @SerializedName("change") val change : Int,
+    @SerializedName("resolution") val resolution : String,
+    @SerializedName("quantity") val quantity : Int,
+    @SerializedName("values") val values : List<Values>
+)
+
+data class Likes (
+    @SerializedName("total") val total : Int,
+    @SerializedName("historical") val historical : Historical
+)
+
+data class Values (
+    @SerializedName("date") val date : String,
+    @SerializedName("value") val value : Int
+)
+
+data class Views (
+    @SerializedName("total") val total : Int,
+    @SerializedName("historical") val historical : Historical
+)
+
+///////////////////

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="project.wgtech.imoge">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="project.wgtech.imoge.common.GlobalApplication"
-        android:label="@string/app_name"
+        android:label="${appName}"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:allowBackup="false"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:targetApi="n">
 
         <activity android:name="project.wgtech.imoge.main.SplashActivity">
             <intent-filter>

@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import project.wgtech.imoge.BuildConfig
 import project.wgtech.imoge.common.CommonEnumeration
 import project.wgtech.imoge.explore.view.PinchZoomableImageView
 
@@ -44,12 +45,12 @@ object ExploreBindingAdapter {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Toast.makeText(view.context, "onLoadFailed", Toast.LENGTH_SHORT).show()
+                        if (BuildConfig.DEBUG) Toast.makeText(view.context, "onLoadFailed", Toast.LENGTH_SHORT).show()
                         return false
                     }
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        Toast.makeText(view.context, "onResourceReady", Toast.LENGTH_SHORT).show()
+                        if (BuildConfig.DEBUG) Toast.makeText(view.context, "onResourceReady", Toast.LENGTH_SHORT).show()
                         return false
                     }
 
