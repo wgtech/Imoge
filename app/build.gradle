@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'kotlinx-serialization'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
 }
@@ -15,21 +16,15 @@ android {
     compileSdkVersion versions.app.compileSdkVersion
     buildToolsVersion versions.app.buildToolsVersion
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+    // Android Studio 4.0+
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/ASL2.0'
-        exclude 'META-INF/**'
-        exclude 'META-INF/*'
-        exclude 'build.xml'
+    // Android Studio IntelliJ style
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
     defaultConfig {
@@ -89,11 +84,16 @@ android {
 //    }
 
     // Android Studio 4.0+
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
+//    buildFeatures {
+//        dataBinding = true
+//        viewBinding = true
+//    }
 
+    // Android Studio IntelliJ styles
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -104,8 +104,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.androidX.appCompat"
     implementation "androidx.core:core-ktx:$versions.androidX.ktx"
     implementation "androidx.constraintlayout:constraintlayout:$versions.androidX.constraintLayout"
+    implementation "androidx.databinding:databinding-ktx:$versions.androidX.databinding_ktx"
     implementation "androidx.fragment:fragment-ktx:$versions.androidX.fragment"
-    implementation "androidx.lifecycle:lifecycle-extensions:$versions.androidX.lifeCycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidX.lifeCycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidX.lifeCycle"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$versions.androidX.lifeCycle"
