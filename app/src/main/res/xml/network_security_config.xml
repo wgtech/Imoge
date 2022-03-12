@@ -3,6 +3,7 @@
     <base-config cleartextTrafficPermitted="true">
         <trust-anchors>
             <certificates src="system" />
+            <domain includeSubdomains="true">api.unsplash.com</domain>
         </trust-anchors>
     </base-config>
 </network-security-config>

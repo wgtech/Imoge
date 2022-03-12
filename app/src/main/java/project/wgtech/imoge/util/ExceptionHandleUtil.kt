@@ -16,7 +16,7 @@ class ExceptionHandleUtil(
     fun showToastShort() = Toast.makeText(context, description, Toast.LENGTH_SHORT).show()
     fun showToastLong() = Toast.makeText(context, description, Toast.LENGTH_LONG).show()
     fun showDialog(positiveActionAsParam: () -> Unit, negativeActionAsParam: () -> Unit) {
-        AlertDialog.Builder(context, R.style.AlertDialogTheme)
+        AlertDialog.Builder(context, R.style.Theme_Imoge_AlertDialog)
             .setCancelable(false)
             .setIcon(drawable)
             .setTitle(title)

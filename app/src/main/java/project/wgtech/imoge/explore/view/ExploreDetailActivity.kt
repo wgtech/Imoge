@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,19 +22,21 @@ class ExploreDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.apply {
-                clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-                addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        window.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> {
+                    setDecorFitsSystemWindows(true)
+                }
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
                     decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                } else {
+                }
+                else -> {
                     decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 }
-                statusBarColor = Color.TRANSPARENT
             }
+            statusBarColor = Color.TRANSPARENT
         }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
@@ -48,7 +51,7 @@ class ExploreDetailActivity : AppCompatActivity() {
             }
 
             AlertDialog
-                    .Builder(ContextThemeWrapper(this@ExploreDetailActivity, R.style.AlertDialogTheme))
+                    .Builder(ContextThemeWrapper(this@ExploreDetailActivity, R.style.Theme_Imoge_AlertDialog))
                     .setTitle(intent?.getStringExtra("description"))
                     .setMessage("${binding.imageUrl}\n")
                     .setPositiveButton(R.string.okay, dialogOnClickListener)
