@@ -2,31 +2,32 @@ ext.versions = [:]
 
 // Plugins
 def plugins = [:]
-plugins.kotlin = "1.5.0"
-plugins.gradle = "4.2.1"
+plugins.kotlin = "1.6.10"
+plugins.gradle = "7.1.2"
 versions.plugins = plugins
 
 // App build
 def app = [:]
-app.compileSdkVersion = 30
-app.buildToolsVersion = "30.0.2"
+app.compileSdkVersion = 32
+app.buildToolsVersion = "32.0.0"
 app.minSdkVersion = 23
-app.targetSdkVersion = 30
-app.versionCode = 600
-app.versionName = "0.6.0"
+app.targetSdkVersion = 32
+app.versionCode = 601
+app.versionName = "0.6.1"
 versions.app = app
 
 // AndroidX
 def androidX = [:]
-androidX.appCompat = "1.3.0"
-androidX.constraintLayout = "2.0.4"
-androidX.navigation = "2.3.5"
-androidX.lifeCycle = "2.2.0"
-androidX.recyclerView = "1.2.0"
+androidX.appCompat = "1.4.1"
+androidX.constraintLayout = "2.1.3"
+androidX.navigation = "2.4.1"
+androidX.lifeCycle = "2.4.1"
+androidX.recyclerView = "1.2.1"
 androidX.swipeRefreshLayout = "1.1.0"
-androidX.fragment = "1.3.4"
-androidX.viewPager2 = "1.1.0-alpha01"
-androidX.ktx = "1.5.0"
+androidX.fragment = "1.4.1"
+androidX.viewPager2 = "1.1.0-beta01"
+androidX.databinding_ktx = "7.1.2"
+androidX.ktx = "1.7.0"
 versions.androidX = androidX
 
 // Dependencies / Libraries
@@ -34,10 +35,10 @@ def deps = [:]
 deps.lottie = "3.1.0"
 deps.retrofit2 = "2.9.0"
 deps.okhttp = "4.9.1"
-deps.glide = "4.10.0"
+deps.glide = "4.13.0"
 deps.gson = "2.8.6"
 deps.rxAndroid = "3.0.0"
-deps.googleMaterial = "1.3.0"
+deps.googleMaterial = "1.5.0"
 deps.spinKit = "1.4.0"
 deps.jUnit = "4.13.2"
 deps.jUnitExt = "1.1.2"
