@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -27,9 +28,15 @@ object ExploreBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("imageUrl")
-    fun bindUrlWithGlide(view: PinchZoomableImageView?, stringifyUrl: String?) {
+    fun AppCompatImageView.setImageUrl(
+        imageUrl: String
+    ) {
+        bindUrlWithGlide(this, imageUrl)
+    }
+
+    private fun bindUrlWithGlide(view: AppCompatImageView, stringifyUrl: String?) {
         Log.d(CommonEnumeration.TAG.stringify, "bindUrlWithGlide: ")
-        view?.context?.let {
+        view.context?.let {
             val circularProgressDrawable = CircularProgressDrawable(view.context)
             if (isDarkMode(it)) circularProgressDrawable.setColorSchemeColors(Color.WHITE)
             circularProgressDrawable.strokeWidth = 15f

@@ -8,10 +8,10 @@ import project.wgtech.imoge.util.ResourceProviderImpl
 
 class CommonViewModelFactory(var context: Context) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
-            ExploreViewModel(ResourceProviderImpl(context)) as T
+     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+         return if (modelClass.isAssignableFrom(ExploreViewModel::class.java)) {
+             ExploreViewModel(ResourceProviderImpl(context)) as T
 
-        } else throw IllegalAccessException("Not defined modelClass!")
+         } else throw IllegalAccessException("Not defined modelClass!")
     }
 }
